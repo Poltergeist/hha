@@ -413,6 +413,9 @@
       padding:6px 2px calc(6px + env(safe-area-inset-bottom)) 2px;
       box-shadow:0 -8px 24px rgba(0,0,0,0.18);
     }
+    /* Während des Onboardings (App-Shell ausgeblendet) darf die fixierte
+       Tab-Bar nicht erscheinen – sonst überdeckt sie den "Weiter"-Button. */
+    .app-shell.hidden ~ .bottom-nav{display:none;}
     .bottom-nav .nav-item{
       flex:1;min-width:0;flex-direction:column;align-items:center;justify-content:center;
       gap:3px;padding:6px 2px;border-radius:10px;font-size:10px;
@@ -454,7 +457,14 @@
     /* Onboarding-Karte randlos & schmaler gepolstert */
     .onb-card{padding:32px 22px;width:100%;max-width:100%;border-radius:0;}
     .onb-step h2{font-size:19px;}
-    #onboarding{min-height:100dvh;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);}
+    /* Bei kleinen Displays (z. B. iPhone 13 mini) ist die Karte höher als der
+       sichtbare Bereich. Oben ausrichten + scrollbar machen, damit der
+       "Weiter"-Button unten immer erreichbar bleibt. */
+    #onboarding{
+      min-height:100dvh;align-items:flex-start;overflow-y:auto;
+      padding-top:env(safe-area-inset-top);
+      padding-bottom:calc(32px + env(safe-area-inset-bottom));
+    }
 
     /* Benachrichtigungs-Dropdown an Bildschirmbreite anpassen */
     .notif-panel{
